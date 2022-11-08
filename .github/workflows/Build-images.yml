@@ -1,0 +1,19 @@
+name: Test
+
+on: push
+
+jobs:
+  buildImage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+      - uses: jitterbit/get-changed-files@v1
+        id: files_modified
+        with:
+          format: space-delimited
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Printing
+        run: |
+          for changed_file in ${{ steps.files_modified.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
